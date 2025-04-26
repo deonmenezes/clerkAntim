@@ -1,4 +1,5 @@
 type CollectionType = {
+  description: ReactNode;
   _id: string;
   title: string;
   products: number;

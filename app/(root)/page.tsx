@@ -1,17 +1,25 @@
-import Collections from "@/components/Collections";
-import ProductList from "@/components/ProductList";
+import Hero from "@/components/hero"
+import AboutSection from "@/components/about-section"
+import Collections from "@/components/Collections"
+import ProductList from "@/components/ProductList"
+import ServicesSection from "@/components/ServicesSection"
+import ClientsSection from "@/components/clients-section"
+import ContactCTA from "@/components/contact-cta"
+import { getCollections } from "@/lib/actions/actions"
 
-import Image from "next/image";
+export default async function Home() {
+  const collections = await getCollections()
 
-export default function Home() {
   return (
-    <>
-      <Image src="/banner.png" alt="banner" width={2000} height={1000} className="w-screen" />
-      <Collections />
+    <main>
+      <Hero />
+      <AboutSection />
+      <Collections collections={collections} />
       <ProductList />
-    </>
-  );
+      <ServicesSection />
+      <ClientsSection />
+      <ContactCTA />
+    </main>
+  )
 }
-
-export const dynamic = "force-dynamic";
 

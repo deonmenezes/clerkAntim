@@ -1,11 +1,11 @@
 "use client";
 
 import useCart from "@/lib/hooks/useCart";
-
 import { useUser } from "@clerk/nextjs";
-import { MinusCircle, PlusCircle, Trash } from "lucide-react";
+import { MinusCircle, PlusCircle, Trash, ShoppingBag } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const Cart = () => {
   const router = useRouter();
@@ -35,7 +35,6 @@ const Cart = () => {
         });
         const data = await res.json();
         window.location.href = data.url;
-        console.log(data);
       }
     } catch (err) {
       console.log("[checkout_POST]", err);
@@ -43,76 +42,111 @@ const Cart = () => {
   };
 
   return (
-    <div className="flex gap-20 py-16 px-10 max-lg:flex-col max-sm:px-3">
-      <div className="w-2/3 max-lg:w-full">
-        <p className="text-heading3-bold">Shopping Cart</p>
-        <hr className="my-6" />
+    <div className="bg-gray-50 min-h-screen py-12">
+      <div className="max-w-7xl mx-auto px-4">
+        <h1 className="text-3xl font-bold mb-8">Shopping Cart</h1>
 
         {cart.cartItems.length === 0 ? (
-          <p className="text-body-bold">No item in cart</p>
+          <div className="bg-white rounded-lg shadow-sm p-8 text-center">
+            <ShoppingBag className="w-16 h-16 mx-auto mb-4 text-gray-400" />
+            <p className="text-xl font-medium mb-4">Your cart is empty</p>
+            <Link
+              href="/products"
+              className="inline-block bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition-colors"
+            >
+              Continue Shopping
+            </Link>
+          </div>
         ) : (
-          <div>
-            {cart.cartItems.map((cartItem) => (
-              <div className="w-full flex max-sm:flex-col max-sm:gap-3 hover:bg-grey-1 px-4 py-3 items-center max-sm:items-start justify-between">
-                <div className="flex items-center">
-                  <Image
-                    src={cartItem.item.media[0]}
-                    width={100}
-                    height={100}
-                    className="rounded-lg w-32 h-32 object-cover"
-                    alt="product"
-                  />
-                  <div className="flex flex-col gap-3 ml-4">
-                    <p className="text-body-bold">{cartItem.item.title}</p>
-                    {cartItem.color && (
-                      <p className="text-small-medium">{cartItem.color}</p>
-                    )}
-                    {cartItem.size && (
-                      <p className="text-small-medium">{cartItem.size}</p>
-                    )}
-                    <p className="text-small-medium">${cartItem.item.price}</p>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-2">
+              <div className="bg-white rounded-lg shadow-sm divide-y">
+                {cart.cartItems.map((cartItem) => (
+                  <div key={cartItem.item._id} className="p-6 flex gap-6">
+                    <Image
+                      src={cartItem.item.media[0]}
+                      width={120}
+                      height={120}
+                      alt={cartItem.item.title}
+                      className="rounded-lg object-cover"
+                    />
+                    <div className="flex-1">
+                      <div className="flex justify-between mb-4">
+                        <div>
+                          <h3 className="font-medium text-lg">{cartItem.item.title}</h3>
+                          <p className="text-gray-600">{cartItem.item.category}</p>
+                        </div>
+                        <button
+                          onClick={() => cart.removeItem(cartItem.item._id)}
+                          className="text-gray-400 hover:text-red-600"
+                        >
+                          <Trash className="w-5 h-5" />
+                        </button>
+                      </div>
+                      
+                      {cartItem.color && (
+                        <p className="text-sm text-gray-600 mb-2">Color: {cartItem.color}</p>
+                      )}
+                      {cartItem.size && (
+                        <p className="text-sm text-gray-600 mb-2">Size: {cartItem.size}</p>
+                      )}
+                      
+                      <div className="flex justify-between items-center">
+                        <div className="flex items-center gap-3">
+                          <button
+                            onClick={() => cart.decreaseQuantity(cartItem.item._id)}
+                            className="p-1 rounded-full hover:bg-gray-100"
+                          >
+                            <MinusCircle className="w-5 h-5 text-gray-600" />
+                          </button>
+                          <span className="font-medium">{cartItem.quantity}</span>
+                          <button
+                            onClick={() => cart.increaseQuantity(cartItem.item._id)}
+                            className="p-1 rounded-full hover:bg-gray-100"
+                          >
+                            <PlusCircle className="w-5 h-5 text-gray-600" />
+                          </button>
+                        </div>
+                        <p className="font-bold text-lg">
+                          ${(cartItem.item.price * cartItem.quantity).toFixed(2)}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="lg:col-span-1">
+              <div className="bg-white rounded-lg shadow-sm p-6">
+                <h2 className="text-xl font-bold mb-6">Order Summary</h2>
+                <div className="space-y-4">
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Subtotal</span>
+                    <span className="font-medium">${totalRounded}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Shipping</span>
+                    <span className="text-green-600">Free</span>
+                  </div>
+                  <div className="border-t pt-4">
+                    <div className="flex justify-between">
+                      <span className="font-bold">Total</span>
+                      <span className="font-bold text-xl">${totalRounded}</span>
+                    </div>
+                    <p className="text-sm text-gray-500 mt-1">Including VAT</p>
                   </div>
                 </div>
-
-                <div className="flex gap-4 items-center">
-                  <MinusCircle
-                    className="hover:text-red-1 cursor-pointer"
-                    onClick={() => cart.decreaseQuantity(cartItem.item._id)}
-                  />
-                  <p className="text-body-bold">{cartItem.quantity}</p>
-                  <PlusCircle
-                    className="hover:text-red-1 cursor-pointer"
-                    onClick={() => cart.increaseQuantity(cartItem.item._id)}
-                  />
-                </div>
-
-                <Trash
-                  className="hover:text-red-1 cursor-pointer"
-                  onClick={() => cart.removeItem(cartItem.item._id)}
-                />
+                <button
+                  onClick={handleCheckout}
+                  className="w-full bg-red-600 text-white mt-6 py-4 rounded-lg font-medium hover:bg-red-700 transition-colors"
+                >
+                  Proceed to Checkout
+                </button>
               </div>
-            ))}
+            </div>
           </div>
         )}
-      </div>
-
-      <div className="w-1/3 max-lg:w-full flex flex-col gap-8 bg-grey-1 rounded-lg px-4 py-5">
-        <p className="text-heading4-bold pb-4">
-          Summary{" "}
-          <span>{`(${cart.cartItems.length} ${
-            cart.cartItems.length > 1 ? "items" : "item"
-          })`}</span>
-        </p>
-        <div className="flex justify-between text-body-semibold">
-          <span>Total Amount</span>
-          <span>$ {totalRounded}</span>
-        </div>
-        <button
-          className="border rounded-lg text-body-bold bg-white py-3 w-full hover:bg-black hover:text-white"
-          onClick={handleCheckout}
-        >
-          Proceed to Checkout
-        </button>
       </div>
     </div>
   );

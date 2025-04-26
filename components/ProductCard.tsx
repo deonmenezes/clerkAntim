@@ -9,28 +9,33 @@ interface ProductCardProps {
   updateSignedInUser?: (updatedUser: UserType) => void;
 }
 
-const ProductCard = ({ product, updateSignedInUser }: ProductCardProps ) => {
+const ProductCard = ({ product, updateSignedInUser }: ProductCardProps) => {
   return (
-    <Link
-      href={`/products/${product._id}`}
-      className="w-[220px] flex flex-col gap-2"
-    >
-      <Image
-        src={product.media[0]}
-        alt="product"
-        width={250}
-        height={300}
-        className="h-[250px] rounded-lg object-cover"
-      />
-      <div>
-        <p className="text-base-bold">{product.title}</p>
-        <p className="text-small-medium text-grey-2">{product.category}</p>
-      </div>
-      <div className="flex justify-between items-center">
-        <p className="text-body-bold">${product.price}</p>
-        <HeartFavorite product={product} updateSignedInUser={updateSignedInUser} />
-      </div>
-    </Link>
+    <div className="group">
+      <Link
+        href={`/products/${product._id}`}
+        className="flex flex-col bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300"
+      >
+        <div className="relative aspect-square overflow-hidden">
+          <Image
+            src={product.media[0]}
+            alt={product.title}
+            fill
+            className="object-cover group-hover:scale-105 transition-transform duration-300"
+          />
+        </div>
+        <div className="p-4">
+          <div className="mb-3">
+            <h3 className="text-lg font-semibold line-clamp-1">{product.title}</h3>
+            <p className="text-sm text-gray-600">{product.category}</p>
+          </div>
+          <div className="flex justify-between items-center">
+            <p className="text-lg font-bold text-green-600">${product.price}</p>
+            <HeartFavorite product={product} updateSignedInUser={updateSignedInUser} />
+          </div>
+        </div>
+      </Link>
+    </div>
   );
 };
 
