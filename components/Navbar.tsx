@@ -114,6 +114,22 @@ const Navbar = () => {
               )}
             </div>
             <Link
+              href="/about"
+              className={`hover:text-red-600 transition-colors text-sm ${
+                pathname === "/about" ? "text-red-600" : ""
+              }`}
+            >
+              About
+            </Link>
+            <Link
+              href="/blog"
+              className={`hover:text-red-600 transition-colors text-sm ${
+                pathname === "/blog" ? "text-red-600" : ""
+              }`}
+            >
+              Blog
+            </Link>
+            <Link
               href={user ? "/wishlist" : "/sign-in"}
               className={`hover:text-red-600 transition-colors text-sm ${
                 pathname === "/wishlist" ? "text-red-600" : ""
@@ -224,6 +240,18 @@ const Navbar = () => {
                 </div>
               )}
             </div>
+            <Link
+              href="/about"
+              className="hover:text-red-600 transition-colors text-sm"
+            >
+              About
+            </Link>
+            <Link
+              href="/blog"
+              className="hover:text-red-600 transition-colors text-sm"
+            >
+              Blog
+            </Link>
             <Link
               href={user ? "/wishlist" : "/sign-in"}
               className="hover:text-red-600 transition-colors text-sm"
