@@ -1,6 +1,15 @@
 export const getCollections = async () => {
-  const collections = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/collections`)
-  return await collections.json()
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/collections`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching collections:', error);
+    return [];
+  }
 }
 
 export const getCollectionDetails = async (collectionId: string) => {
@@ -9,8 +18,17 @@ export const getCollectionDetails = async (collectionId: string) => {
 }
 
 export const getProducts = async () => {
-  const products = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`)
-  return await products.json()
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    return [];
+  }
 }
 
 export const getProductDetails = async (productId: string) => {

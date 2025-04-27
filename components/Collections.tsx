@@ -1,11 +1,28 @@
 import Image from "next/image";
 import Link from "next/link";
 
-interface CollectionProps {
-  collections: CollectionType[];
+interface CollectionType {
+  _id: string;
+  title: string;
+  description: string;
+  image: string;
 }
 
-const Collections = ({ collections }: CollectionProps) => {
+interface CollectionProps {
+  collections?: CollectionType[];
+}
+
+const Collections = ({ collections = [] }: CollectionProps) => {
+  if (!collections || collections.length === 0) {
+    return (
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4 text-center">
+          <p>No collections available at the moment.</p>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="py-16 bg-gray-50">
       <div className="container mx-auto px-4">
