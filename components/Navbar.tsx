@@ -7,8 +7,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
+import { NavCollection } from "./NavbarCollections";
 
-const Navbar = () => {
+interface NavbarProps {
+  collections: NavCollection[];
+}
+
+const Navbar = ({ collections = [] }: NavbarProps) => {
   const pathname = usePathname();
   const router = useRouter();
   const { user } = useUser();
@@ -86,30 +91,32 @@ const Navbar = () => {
               </button>
               {isProductsOpen && (
                 <div className="absolute top-full left-0 mt-2 w-48 bg-white border rounded-lg shadow-lg py-2 z-50">
-                  <Link
-                    href="/collections/industrial-tools"
-                    className="block px-4 py-2 text-sm hover:bg-gray-100"
-                  >
-                    Industrial Tools
-                  </Link>
-                  <Link
-                    href="/collections/safety-equipment"
-                    className="block px-4 py-2 text-sm hover:bg-gray-100"
-                  >
-                    Safety Equipment
-                  </Link>
-                  <Link
-                    href="/collections/machinery"
-                    className="block px-4 py-2 text-sm hover:bg-gray-100"
-                  >
-                    Machinery
-                  </Link>
-                  <Link
-                    href="/collections"
-                    className="block px-4 py-2 text-sm hover:bg-gray-100 border-t"
-                  >
-                    View All Collections
-                  </Link>
+                  {collections.length > 0 ? (
+                    <>
+                      {collections.map((collection) => (
+                        <Link
+                          key={collection._id}
+                          href={`/collections/${collection._id}`}
+                          className="block px-4 py-2 text-sm hover:bg-gray-100"
+                        >
+                          {collection.title}
+                        </Link>
+                      ))}
+                      <Link
+                        href="/collections"
+                        className="block px-4 py-2 text-sm hover:bg-gray-100 border-t"
+                      >
+                        View All Collections
+                      </Link>
+                    </>
+                  ) : (
+                    <Link
+                      href="/collections"
+                      className="block px-4 py-2 text-sm hover:bg-gray-100"
+                    >
+                      View All Collections
+                    </Link>
+                  )}
                 </div>
               )}
             </div>
@@ -213,30 +220,32 @@ const Navbar = () => {
               </button>
               {isProductsOpen && (
                 <div className="pl-4 space-y-2">
-                  <Link
-                    href="/collections/industrial-tools"
-                    className="block text-sm hover:text-red-600"
-                  >
-                    Industrial Tools
-                  </Link>
-                  <Link
-                    href="/collections/safety-equipment"
-                    className="block text-sm hover:text-red-600"
-                  >
-                    Safety Equipment
-                  </Link>
-                  <Link
-                    href="/collections/machinery"
-                    className="block text-sm hover:text-red-600"
-                  >
-                    Machinery
-                  </Link>
-                  <Link
-                    href="/collections"
-                    className="block text-sm hover:text-red-600"
-                  >
-                    View All Collections
-                  </Link>
+                  {collections.length > 0 ? (
+                    <>
+                      {collections.map((collection) => (
+                        <Link
+                          key={collection._id}
+                          href={`/collections/${collection._id}`}
+                          className="block text-sm hover:text-red-600"
+                        >
+                          {collection.title}
+                        </Link>
+                      ))}
+                      <Link
+                        href="/collections"
+                        className="block text-sm hover:text-red-600"
+                      >
+                        View All Collections
+                      </Link>
+                    </>
+                  ) : (
+                    <Link
+                      href="/collections"
+                      className="block text-sm hover:text-red-600"
+                    >
+                      View All Collections
+                    </Link>
+                  )}
                 </div>
               )}
             </div>

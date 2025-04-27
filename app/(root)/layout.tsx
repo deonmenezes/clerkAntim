@@ -6,6 +6,7 @@ import "../globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/footer";
 import ToasterProvider from "@/lib/providers/ToasterProvider";
+import { NavbarCollections } from "@/components/NavbarCollections";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,13 +15,16 @@ export const metadata: Metadata = {
   description: "STTS Ecommerce Store",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  // Fetch collections for the navbar
+  const { collections } = await NavbarCollections();
+  
   return (
     <ClerkProvider>
       <html lang="en">
         <body className={inter.className}>
           <div className="min-h-screen flex flex-col">
-            <Navbar />
+            <Navbar collections={collections} />
             <main className="flex-grow">
               {children}
             </main>
