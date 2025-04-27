@@ -1,8 +1,8 @@
 import { connectToDB } from "@/lib/mongoDB";
 import Collection from "@/lib/models/Collection";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export const GET = async () => {
+export async function GET(request: NextRequest) {
   try {
     await connectToDB();
     const collections = await Collection.find();
