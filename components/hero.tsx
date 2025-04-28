@@ -4,18 +4,19 @@ import { Button } from "@/components/ui/button"
 
 export default function Hero() {
   return (
-    <div className="relative">
+    <div className="relative h-[700px] md:h-[800px] lg:h-[900px]">
       <div className="absolute inset-0 z-0">
         <Image
-          src="/heroimg2.jpg?height=600&width=1600"
+          src="/heroimg2.jpg"
           alt="Industrial background"
           fill
           className="object-cover brightness-70"
+          sizes="100vw"
           priority
         />
       </div>
 
-      <div className="relative z-10 container mx-auto px-4 py-24 md:py-32">
+      <div className="relative z-10 container mx-auto px-4 py-24 md:py-32 h-full flex items-center">
         <div className="max-w-2xl text-white">
           <div className="inline-block bg-white text-black px-4 py-2 mb-6">
             <h2 className="text-lg font-semibold">Industrial Tools & Equipment</h2>

@@ -5,15 +5,15 @@ import { CheckCircle } from "lucide-react"
 
 export default function AboutSection() {
   return (
-    <section className="py-16">
+    <section className="py-16 mt-2 md:mt-4">
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className="relative h-[500px]">
+          <div className="relative h-[500px] mt-6">
             <Image
               src="/clientAntim_logo.png"
               alt="About Excel Trading"
               fill
-              className="object-cover rounded-lg"
+              className="object-contain rounded-lg"
             />
           </div>
 

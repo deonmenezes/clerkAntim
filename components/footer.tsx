@@ -12,11 +12,10 @@ export default function Footer() {
           <div>
             <Link href="/" className="inline-block mb-6">
               <Image
-                src="/placeholder.jpg"
+                src="/clientAntim_logo.png"
                 alt="Excel Trading LLC"
                 width={120}
                 height={40}
-                className="invert"
               />
             </Link>
             <p className="mb-6">
@@ -137,7 +136,11 @@ export default function Footer() {
               </li>
               <li className="flex items-start">
                 <Mail className="h-5 w-5 mr-3 text-green-500 mt-0.5" />
-                <span>exceltrdguae@gmail.com</span>
+                <div className="flex flex-col">
+                  <span>sales@smoothtts.com</span>
+                  <span>info@smoothtts.com</span>
+                  <span>accounts@smoothtts.com</span>
+                </div>
               </li>
             </ul>
 
