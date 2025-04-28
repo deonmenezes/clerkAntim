@@ -19,8 +19,7 @@ export default function Footer() {
               />
             </Link>
             <p className="mb-6">
-              Excel Trading LLC (OPC) is one of the main industrial product supplier for a wide range of industrial
-              tools and equipment all over the UAE.
+            Smooth Technical Trading and Service LLC is a premier industrial trading company based in Abu Dhabi, UAE. We specialize in sourcing, supplying, and distributing high-quality mechanical and electrical products .
             </p>
             {/* <div className="flex space-x-4">
               <Link href="#" className="hover:text-green-500 transition-colors duration-300">

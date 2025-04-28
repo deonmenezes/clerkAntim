@@ -25,8 +25,7 @@ export default function Hero() {
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">ELEVATE YOUR WORK WITH OUR PREMIUM TOOLS</h1>
 
           <p className="text-lg mb-8">
-            Excel Trading LLC (OPC) is one of the main industrial product supplier for a wide range of industrial tools
-            and equipment all over the UAE
+          Smooth Technical Trading and Service LLC is a premier industrial trading company based in Abu Dhabi, UAE. We specialize in sourcing, supplying, and distributing high-quality mechanical and electrical products.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4">
