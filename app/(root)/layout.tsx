@@ -7,6 +7,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/footer";
 import ToasterProvider from "@/lib/providers/ToasterProvider";
 import { NavbarCollections } from "@/components/NavbarCollections";
+import Chatbot from "@/components/Chatbot";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -34,6 +36,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <Footer />
           </div>
           <ToasterProvider />
+          <Chatbot />
+          <WhatsAppButton phoneNumber="+971545417801" />
         </body>
       </html>
     </ClerkProvider>
