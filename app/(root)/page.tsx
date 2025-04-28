@@ -17,7 +17,7 @@ export default async function Home() {
       <Collections collections={collections} />
       <ProductList />
       <ServicesSection />
-      {/* <ClientsSection /> */}
+      <ClientsSection />
       <ContactCTA />
     </main>
   )
