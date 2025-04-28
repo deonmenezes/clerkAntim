@@ -13,6 +13,9 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "STTS Store",
   description: "STTS Ecommerce Store",
+  icons: {
+    icon: "/stts_favicon.ico",
+  },
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
