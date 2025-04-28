@@ -144,13 +144,7 @@ export default function Footer() {
               </li>
             </ul>
 
-            <div className="mt-6">
-              <h4 className="text-sm font-semibold mb-3">Subscribe to our newsletter</h4>
-              <div className="flex">
-                <Input type="email" placeholder="Your email" className="bg-gray-800 border-gray-700 text-white" />
-                <Button className="ml-2 bg-green-600 hover:bg-green-700">Subscribe</Button>
-              </div>
-            </div>
+             
           </div>
         </div>
 
