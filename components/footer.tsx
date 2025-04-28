@@ -22,7 +22,7 @@ export default function Footer() {
               Excel Trading LLC (OPC) is one of the main industrial product supplier for a wide range of industrial
               tools and equipment all over the UAE.
             </p>
-            <div className="flex space-x-4">
+            {/* <div className="flex space-x-4">
               <Link href="#" className="hover:text-green-500 transition-colors duration-300">
                 <Facebook className="h-5 w-5" />
                 <span className="sr-only">Facebook</span>
@@ -39,7 +39,7 @@ export default function Footer() {
                 <Linkedin className="h-5 w-5" />
                 <span className="sr-only">LinkedIn</span>
               </Link>
-            </div>
+            </div> */}
           </div>
 
           <div>
@@ -128,7 +128,7 @@ export default function Footer() {
             <ul className="space-y-4">
               <li className="flex items-start">
                 <MapPin className="h-5 w-5 mr-3 text-green-500 mt-0.5" />
-                <span>Dubai, United Arab Emirates</span>
+                <span>Plot No C126 Sector E11 AL Majarat St,Al Danah Abu Dhabi UAE 22220 </span>
               </li>
               <li className="flex items-start">
                 <Phone className="h-5 w-5 mr-3 text-green-500 mt-0.5" />

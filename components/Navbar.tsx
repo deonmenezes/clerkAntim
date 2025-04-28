@@ -39,7 +39,7 @@ const Navbar = ({ collections = [] }: NavbarProps) => {
             </div>
             <div className="flex items-center">
               <Mail className="h-3 w-3 mr-1.5 text-red-600" />
-              <p className="font-semibold">exceltrdguae@gmail.com</p>
+              <p className="font-semibold">sales@smoothtts.com</p>
             </div>
           </div>
         </div>

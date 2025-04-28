@@ -27,18 +27,37 @@ export default function ContactPage() {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    
-    toast.success("Your message has been sent! We'll get back to you soon.");
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      company: "",
-      message: "",
-    });
-    setIsSubmitting(false);
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          recipient: 'sales@smoothtts.com'
+        }),
+      });
+      
+      if (response.ok) {
+        toast.success("Your message has been sent! We'll get back to you soon.");
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          company: "",
+          message: "",
+        });
+      } else {
+        const error = await response.json();
+        toast.error(error.error || "Failed to send message. Please try again.");
+      }
+    } catch (error) {
+      toast.error("An error occurred. Please try again later.");
+      console.error("Contact form error:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const fadeIn = {
@@ -178,9 +197,8 @@ export default function ContactPage() {
                     <h3 className="text-lg font-semibold mb-1">Our Office</h3>
                     <p className="text-gray-600">
                       Smooth Technical Trading and Service LLC<br />
-                      Office #304, Al Fahim Building<br />
-                      Hamdan Street, Abu Dhabi<br />
-                      United Arab Emirates
+                      Plot No C126 Sector E11 AL Majarat St,Al Danah Abu Dhabi UAE 22220 <br />
+                    
                     </p>
                   </div>
                 </div>
@@ -192,7 +210,6 @@ export default function ContactPage() {
                   <div>
                     <h3 className="text-lg font-semibold mb-1">Phone</h3>
                     <p className="text-gray-600 mb-1">Main: +971 545417801</p>
-                    <p className="text-gray-600">Sales: +971 545417802</p>
                   </div>
                 </div>
                 
@@ -202,8 +219,9 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold mb-1">Email</h3>
-                    <p className="text-gray-600 mb-1">General: exceltrdguae@gmail.com</p>
-                    <p className="text-gray-600">Sales: sales@smoothtechnical.ae</p>
+                    <p className="text-gray-600 mb-1">General: info@smoothtts.com</p>
+                    <p className="text-gray-600">Sales: sales@smoothtts.com
+</p>
                   </div>
                 </div>
                 
@@ -237,15 +255,22 @@ export default function ContactPage() {
           </motion.h2>
           
           <motion.div
-            className="h-[400px] bg-gray-200 rounded-lg overflow-hidden shadow-md"
+            className="h-[400px] rounded-lg overflow-hidden shadow-md"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
           >
-            {/* This would normally be a Google Maps embed - placeholder for now */}
-            <div className="w-full h-full flex items-center justify-center bg-gray-200">
-              <p className="text-gray-500">Google Maps Embed Would Go Here</p>
-            </div>
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3629.7984111237397!2d54.369945076905264!3d24.48799823693419!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5e664373f349cd%3A0xd36eac4ca80a92d6!2sc%20-%2011%20Al%20Majarat%20St%20-%20Al%20Danah%20-%20Zone%201%20-%20Abu%20Dhabi%20-%20United%20Arab%20Emirates!5e0!3m2!1sen!2sus!4v1714479233761!5m2!1sen!2sus" 
+              width="100%" 
+              height="100%" 
+              style={{ border: 0 }} 
+              allowFullScreen={true} 
+              loading="lazy" 
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Smooth Technical Trading and Service LLC Location"
+              className="w-full h-full"
+            />
           </motion.div>
         </div>
       </section>

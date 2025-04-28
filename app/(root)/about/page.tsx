@@ -66,11 +66,9 @@ export default function AboutPage() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <h2 className="text-3xl font-bold mb-6 text-gray-900">Our Story</h2>
+              <h2 className="text-3xl font-bold mb-6 text-gray-900">About Us</h2>
               <p className="text-gray-600 mb-6">
-                Founded in 2015, Smooth Technical Trading and Service LLC has grown from a small trading company to one of the 
-                most trusted industrial product suppliers in the UAE. Our journey began with a simple mission: to provide 
-                high-quality industrial products coupled with exceptional service.
+              Smooth Technical Trading and Service LLC is a premier industrial trading company based in Abu Dhabi, UAE. We specialize in sourcing, supplying, and distributing high-quality mechanical and electrical products to diverse sectors including oil & gas, manufacturing, construction, and logistics. Our mission is to be a trusted partner offering reliable, efficient, and cost-effective solutions tailored to our client's industrial needs. We strive for excellence in customer satisfaction, product quality, and service standards.
               </p>
               <p className="text-gray-600 mb-6">
                 Today, we proudly serve diverse sectors including oil & gas, manufacturing, construction, and logistics across 
