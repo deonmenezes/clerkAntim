@@ -129,6 +129,14 @@ const Navbar = ({ collections = [] }: NavbarProps) => {
               About
             </Link>
             <Link
+              href="/services"
+              className={`hover:text-red-600 transition-colors text-sm ${
+                pathname === "/services" ? "text-red-600" : ""
+              }`}
+            >
+              Services
+            </Link>
+            <Link
               href="/blog"
               className={`hover:text-red-600 transition-colors text-sm ${
                 pathname === "/blog" ? "text-red-600" : ""
@@ -254,6 +262,12 @@ const Navbar = ({ collections = [] }: NavbarProps) => {
               className="hover:text-red-600 transition-colors text-sm"
             >
               About
+            </Link>
+            <Link
+              href="/services"
+              className="hover:text-red-600 transition-colors text-sm"
+            >
+              Services
             </Link>
             <Link
               href="/blog"
