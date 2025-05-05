@@ -17,6 +17,8 @@ export default function ContactPage() {
     company: "",
     message: "",
   });
+  const [subscribeEmail, setSubscribeEmail] = useState("");
+  const [isSubscribing, setIsSubscribing] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -57,6 +59,40 @@ export default function ContactPage() {
       console.error("Contact form error:", error);
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!subscribeEmail) {
+      toast.error("Please enter your email address");
+      return;
+    }
+    
+    setIsSubscribing(true);
+    
+    try {
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: subscribeEmail }),
+      });
+      
+      if (response.ok) {
+        toast.success("You've been subscribed to our newsletter!");
+        setSubscribeEmail("");
+      } else {
+        const error = await response.json();
+        toast.error(error.error || "Failed to subscribe. Please try again.");
+      }
+    } catch (error) {
+      toast.error("An error occurred. Please try again later.");
+      console.error("Subscription error:", error);
+    } finally {
+      setIsSubscribing(false);
     }
   };
 
@@ -239,6 +275,46 @@ export default function ContactPage() {
               </div>
             </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* Newsletter Subscription Section */}
+      <section className="py-16 bg-green-50">
+        <div className="container mx-auto px-4">
+          <motion.div 
+            className="max-w-3xl mx-auto text-center"
+            initial="hidden"
+            animate="visible"
+            variants={fadeIn}
+          >
+            <h2 className="text-3xl font-bold mb-6 text-gray-900">Subscribe to Our Newsletter</h2>
+            <p className="text-lg text-gray-600 mb-8">
+              Stay updated with our latest products, special offers, and industry news.
+            </p>
+            
+            <form onSubmit={handleSubscribe} className="flex flex-col md:flex-row gap-4 max-w-lg mx-auto">
+              <Input
+                type="email"
+                placeholder="Your email address"
+                value={subscribeEmail}
+                onChange={(e) => setSubscribeEmail(e.target.value)}
+                className="flex-grow"
+                required
+              />
+              <Button 
+                type="submit" 
+                className="bg-green-600 hover:bg-green-700 flex items-center justify-center gap-2"
+                disabled={isSubscribing}
+              >
+                {isSubscribing ? "Subscribing..." : "Subscribe"}
+                <Send className="h-4 w-4" />
+              </Button>
+            </form>
+            
+            <p className="mt-4 text-sm text-gray-500">
+              We respect your privacy and will never share your information with third parties.
+            </p>
+          </motion.div>
         </div>
       </section>
 

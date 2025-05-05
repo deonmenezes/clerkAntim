@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 
 export default function Hero() {
   return (
-    <div className="relative h-[700px] md:h-[800px] lg:h-[900px]">
+      <div className="relative h-[400px] md:h-[500px] lg:h-[600px]">
       <div className="absolute inset-0 z-0">
         <Image
           src="/heroimg2.jpg"
@@ -16,7 +16,7 @@ export default function Hero() {
         />
       </div>
 
-      <div className="relative z-10 container mx-auto px-4 py-24 md:py-32 h-full flex items-center">
+      <div className="relative z-10 container mx-auto px-4 py-12 md:py-16 h-full flex items-center">
         <div className="max-w-2xl text-white">
           <div className="inline-block bg-white text-black px-4 py-2 mb-6">
             <h2 className="text-lg font-semibold">Industrial Tools & Equipment</h2>

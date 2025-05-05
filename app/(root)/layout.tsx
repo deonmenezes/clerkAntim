@@ -33,7 +33,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <main className="flex-grow">
               {children}
             </main>
-            <Footer />
+            <Footer collections={collections} />
           </div>
           <ToasterProvider />
           <Chatbot />

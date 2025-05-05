@@ -1,10 +1,55 @@
+'use client'
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Facebook, Instagram, Linkedin, Mail, MapPin, Phone, Twitter } from "lucide-react"
+import { Facebook, Instagram, Linkedin, Mail, MapPin, Phone, Twitter, Send } from "lucide-react"
+import { useState } from "react"
+import { toast } from "sonner"
+import { NavCollection } from "./NavbarCollections"
 
-export default function Footer() {
+interface FooterProps {
+  collections?: NavCollection[];
+}
+
+export default function Footer({ collections = [] }: FooterProps) {
+  const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!email) {
+      toast.error("Please enter your email address");
+      return;
+    }
+    
+    setIsSubmitting(true);
+    
+    try {
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+      
+      if (response.ok) {
+        toast.success("You've been subscribed to our newsletter!");
+        setEmail("");
+      } else {
+        const error = await response.json();
+        toast.error(error.error || "Failed to subscribe. Please try again.");
+      }
+    } catch (error) {
+      toast.error("An error occurred. Please try again later.");
+      console.error("Subscription error:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <footer className="bg-gray-900 text-white mt-auto">
       <div className="container mx-auto px-4 py-12">
@@ -78,45 +123,29 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold mb-6">Product Categories</h3>
+            <h3 className="text-lg font-semibold mb-6">Product Collections</h3>
             <ul className="space-y-3">
+              {collections.length > 0 ? (
+                collections.slice(0, 6).map((collection) => (
+                  <li key={collection._id}>
+                    <Link 
+                      href={`/collections/${collection._id}`} 
+                      className="hover:text-green-500 transition-colors duration-300"
+                    >
+                      {collection.title}
+                    </Link>
+                  </li>
+                ))
+              ) : (
+                <li>
+                  <Link href="/collections" className="hover:text-green-500 transition-colors duration-300">
+                    View All Products
+                  </Link>
+                </li>
+              )}
               <li>
-                <Link href="/products?category=tools" className="hover:text-green-500 transition-colors duration-300">
-                  Hand Tools
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/products?category=power-tools"
-                  className="hover:text-green-500 transition-colors duration-300"
-                >
-                  Power Tools
-                </Link>
-              </li>
-              <li>
-                <Link href="/products?category=safety" className="hover:text-green-500 transition-colors duration-300">
-                  Safety Equipment
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/products?category=machinery"
-                  className="hover:text-green-500 transition-colors duration-300"
-                >
-                  Machinery
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/products?category=measuring"
-                  className="hover:text-green-500 transition-colors duration-300"
-                >
-                  Measuring Tools
-                </Link>
-              </li>
-              <li>
-                <Link href="/products" className="hover:text-green-500 transition-colors duration-300">
-                  View All Products
+                <Link href="/collections" className="hover:text-green-500 transition-colors duration-300">
+                  View All Collections
                 </Link>
               </li>
             </ul>
@@ -136,14 +165,38 @@ export default function Footer() {
               <li className="flex items-start">
                 <Mail className="h-5 w-5 mr-3 text-green-500 mt-0.5" />
                 <div className="flex flex-col">
-                  <span>sales@smoothtts.com</span>
-                  <span>info@smoothtts.com</span>
-                  <span>accounts@smoothtts.com</span>
+                  <span>sales@smoothtradings.com</span>
+                  <span>info@smoothtradings.com</span>
+                  <span>accounts@smoothtradings.com</span>
                 </div>
               </li>
             </ul>
 
-             
+            <div className="mt-6">
+              <h3 className="text-lg font-semibold mb-3">Subscribe to Newsletter</h3>
+              <form onSubmit={handleSubscribe} className="flex flex-col space-y-3">
+                <div className="flex">
+                  <Input
+                    type="email"
+                    placeholder="Your email address"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="flex-grow bg-gray-800 border-gray-700 text-white"
+                  />
+                  <Button 
+                    type="submit" 
+                    className="ml-2 bg-green-600 hover:bg-green-700"
+                    disabled={isSubmitting}
+                  >
+                    <Send className="h-4 w-4" />
+                    <span className="sr-only">Subscribe</span>
+                  </Button>
+                </div>
+                <p className="text-xs text-gray-400">
+                  Subscribe to get updates on new products and special offers
+                </p>
+              </form>
+            </div>
           </div>
         </div>
 

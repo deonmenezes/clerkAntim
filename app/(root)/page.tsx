@@ -13,9 +13,10 @@ export default async function Home() {
   return (
     <main>
       <Hero />
+      <ProductList />
       <AboutSection />
       <Collections collections={collections} />
-      <ProductList />
+      
       <ServicesSection />
       <ClientsSection />
       <ContactCTA />
