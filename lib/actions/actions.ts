@@ -42,8 +42,16 @@ export const getSearchedProducts = async (query: string) => {
 }
 
 export const getOrders = async (customerId: string) => {
-  const orders = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/orders/customers/${customerId}`)
-  return await orders.json()
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/orders/customers/${customerId}`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching orders:', error);
+    return [];
+  }
 }
 
 export const getRelatedProducts = async (productId: string) => {
