@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { connectToDatabase } from "@/lib/mongoDB";
+import { connectToDB } from "@/lib/mongoDB";
 import Order from "@/lib/models/Order";
 
 export async function GET(request: NextRequest, { params }: { params: { customerId: string } }) {
@@ -10,7 +10,7 @@ export async function GET(request: NextRequest, { params }: { params: { customer
   }
 
   try {
-    await connectToDatabase();
+    await connectToDB();
     
     const orders = await Order.find({ customerClerkId: customerId })
       .populate({
