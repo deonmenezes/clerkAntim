@@ -1,18 +1,25 @@
 import mongoose from "mongoose";
 
 const productSchema = new mongoose.Schema({
-  name: String,
+  title: String,
   description: String,
   price: Number,
-  images: [String],
+  cost: {
+    type: Number,
+    default: 0
+  },
+  media: [String],
   category: String,
+  collections: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Collection'
+  }],
+  tags: [String],
+  sizes: [String],
+  colors: [String],
   inStock: {
     type: Boolean,
     default: true
-  },
-  collection: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Collection'
   },
   createdAt: {
     type: Date,

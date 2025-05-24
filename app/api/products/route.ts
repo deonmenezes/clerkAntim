@@ -5,7 +5,7 @@ import { connectToDB } from "@/lib/mongoDB";
 export async function GET() {
   try {
     await connectToDB();
-    const products = await Product.find().populate('collection');
+    const products = await Product.find().populate('collections');
     return NextResponse.json(products);
   } catch (error) {
     console.error("Error fetching products:", error);
