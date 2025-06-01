@@ -45,7 +45,7 @@ export async function getGeminiResponse(userMessage: string): Promise<string> {
     2. If unable to answer a specific question about products or pricing, direct them to browse our collections
     3. For any customer service issues, provide the contact email: sales@smoothtts.com
     4. Always be helpful, concise and friendly
-    5. If asked for contact information, provide the email: sales@smoothtts.com phone:+971545417801
+    5. If asked for contact information, provide the email: sales@smoothtts.com phone:+971545417801 / 0508267792
     6. Never make up information about products or collections you don't know about
     7. Your responses should be brief and to the point, under 100 words when possible`;
 

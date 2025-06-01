@@ -35,7 +35,7 @@ const Navbar = ({ collections = [] }: NavbarProps) => {
           <div className="flex items-center gap-4 text-xs">
             <div className="flex items-center">
               <Phone className="h-3 w-3 mr-1.5 text-red-600" />
-              <p className="font-semibold">+971545417801</p>
+              <p className="font-semibold">+971 545417801 / 0508267792</p>
             </div>
             <div className="flex items-center">
               <Mail className="h-3 w-3 mr-1.5 text-red-600" />
