@@ -198,10 +198,19 @@ export default function Footer({ collections = [] }: FooterProps) {
               </form>
             </div>
           </div>
-        </div>
-
-        <div className="border-t border-gray-800 mt-12 pt-8 text-center text-sm text-gray-400">
+        </div>        <div className="border-t border-gray-800 mt-12 pt-8 text-center text-sm text-gray-400">
           <p>&copy; {new Date().getFullYear()} Smooth Technical Trading and Service LLC. All rights reserved.</p>
+          <div className="mt-2 flex justify-center space-x-4">
+            <Link href="/sitemap.xml" className="hover:text-green-500 transition-colors duration-300">
+              Sitemap
+            </Link>
+            <Link href="/privacy-policy" className="hover:text-green-500 transition-colors duration-300">
+              Privacy Policy
+            </Link>
+            <Link href="/terms-of-service" className="hover:text-green-500 transition-colors duration-300">
+              Terms of Service
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
