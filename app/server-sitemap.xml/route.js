@@ -18,29 +18,69 @@ const Collection = mongoose.models.Collection || mongoose.model('Collection', ne
 }));
 
 export async function GET(request) {
+  const baseUrl = process.env.SITE_URL || 'https://smoothtradings.com';
+  
   try {
     await connectToDB();
     
     // Fetch all products
-    const products = await Product.find({}).select('_id updatedAt').lean();
+    const products = await Product.find({}).select('_id title updatedAt').lean();
     const productUrls = products.map((product) => ({
-      loc: `https://smoothtradings.com/products/${product._id}`,
+      loc: `${baseUrl}/products/${product._id}`,
       lastmod: new Date(product.updatedAt || new Date()).toISOString(),
       changefreq: 'weekly',
       priority: 0.8,
+      // Add product title as alternate text for improved SEO
+      alternateRefs: [
+        {
+          href: `${baseUrl}/products/${product._id}`,
+          hreflang: 'en',
+          title: product.title
+        }
+      ]
     }));
     
     // Fetch all collections
-    const collections = await Collection.find({}).select('_id updatedAt').lean();
+    const collections = await Collection.find({}).select('_id title updatedAt').lean();
     const collectionUrls = collections.map((collection) => ({
-      loc: `https://smoothtradings.com/collections/${collection._id}`,
+      loc: `${baseUrl}/collections/${collection._id}`,
       lastmod: new Date(collection.updatedAt || new Date()).toISOString(),
       changefreq: 'weekly',
       priority: 0.7,
+      // Add collection title as alternate text
+      alternateRefs: [
+        {
+          href: `${baseUrl}/collections/${collection._id}`,
+          hreflang: 'en',
+          title: collection.title
+        }
+      ]
     }));
 
+    // Add blog posts to sitemap
+    const blogUrls = [
+      {
+        loc: `${baseUrl}/blog/windsock-uae-reflective-tape`,
+        lastmod: new Date('2025-04-28').toISOString(),
+        changefreq: 'monthly',
+        priority: 0.7,
+      },
+      {
+        loc: `${baseUrl}/blog/vaultex-safety-products-uae`,
+        lastmod: new Date('2025-04-20').toISOString(),
+        changefreq: 'monthly',
+        priority: 0.7,
+      },
+      {
+        loc: `${baseUrl}/blog/tarpaulin-uae-solutions`,
+        lastmod: new Date('2025-04-15').toISOString(),
+        changefreq: 'monthly',
+        priority: 0.7,
+      }
+    ];
+
     // Combine all URLs
-    const allUrls = [...productUrls, ...collectionUrls];
+    const allUrls = [...productUrls, ...collectionUrls, ...blogUrls];
     
     return getServerSideSitemap(allUrls);
   } catch (error) {

@@ -13,8 +13,8 @@ export const connectToDB = async (): Promise<void> => {
   try {
     const mongoUrl = process.env.MONGODB_URL;
     if (!mongoUrl) {
-      console.log("MongoDB URL not provided, skipping connection");
-      return;
+      console.error("MongoDB URL not provided in environment variables");
+      throw new Error("MongoDB URL not provided");
     }
 
     await mongoose.connect(mongoUrl, {
@@ -24,6 +24,7 @@ export const connectToDB = async (): Promise<void> => {
     isConnected = true;
     console.log("MongoDB is connected");
   } catch (err) {
-    console.log(err)
+    console.error("MongoDB connection error:", err);
+    throw new Error("Failed to connect to MongoDB");
   }
 }

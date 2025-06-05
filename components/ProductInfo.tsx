@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import Script from "next/script";
 import HeartFavorite from "./HeartFavorite";
 import { MinusCircle, PlusCircle } from "lucide-react";
+import { generateProductJsonLd } from "@/lib/utils/seo";
 
 import useCart from "@/lib/hooks/useCart";
 
@@ -16,9 +18,16 @@ const ProductInfo = ({ productInfo }: { productInfo: ProductType }) => {
   const [quantity, setQuantity] = useState<number>(1);
 
   const cart = useCart();
+  
+  // Generate product structured data
+  const productJsonLd = generateProductJsonLd(productInfo);
 
   return (
     <div className="max-w-[400px] flex flex-col gap-4">
+      {/* Add structured data for this product */}
+      <Script id="product-jsonld" type="application/ld+json">
+        {JSON.stringify(productJsonLd)}
+      </Script>
       <div className="flex justify-between items-center">
         <p className="text-heading3-bold">{productInfo.title}</p>
         <HeartFavorite product={productInfo} />
