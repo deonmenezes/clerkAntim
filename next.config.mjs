@@ -10,6 +10,10 @@ const nextConfig = {
       },
     ],
   },
+  // Ensure API routes are properly handled during static generation
+  experimental: {
+    missingSuspenseWithCSRBailout: false,
+  },
 };
 
 export default nextConfig;
