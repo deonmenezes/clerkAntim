@@ -1,0 +1,14 @@
+# *
+User-agent: *
+Allow: /
+Disallow: /api/*
+Disallow: /sign-in
+Disallow: /sign-up
+Disallow: /payment_success
+
+# Host
+Host: https://smoothtradings.com
+
+# Sitemaps
+Sitemap: https://smoothtradings.com/sitemap.xml
+Sitemap: https://smoothtradings.com/server-sitemap.xml

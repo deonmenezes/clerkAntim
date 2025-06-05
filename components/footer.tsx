@@ -160,7 +160,7 @@ export default function Footer({ collections = [] }: FooterProps) {
               </li>
               <li className="flex items-start">
                 <Phone className="h-5 w-5 mr-3 text-green-500 mt-0.5" />
-                <span>+971545417801</span>
+                <span>+971 545417801/ 0508267792</span>
               </li>
               <li className="flex items-start">
                 <Mail className="h-5 w-5 mr-3 text-green-500 mt-0.5" />
@@ -198,10 +198,19 @@ export default function Footer({ collections = [] }: FooterProps) {
               </form>
             </div>
           </div>
-        </div>
-
-        <div className="border-t border-gray-800 mt-12 pt-8 text-center text-sm text-gray-400">
+        </div>        <div className="border-t border-gray-800 mt-12 pt-8 text-center text-sm text-gray-400">
           <p>&copy; {new Date().getFullYear()} Smooth Technical Trading and Service LLC. All rights reserved.</p>
+          <div className="mt-2 flex justify-center space-x-4">
+            <Link href="/sitemap.xml" className="hover:text-green-500 transition-colors duration-300">
+              Sitemap
+            </Link>
+            <Link href="/privacy-policy" className="hover:text-green-500 transition-colors duration-300">
+              Privacy Policy
+            </Link>
+            <Link href="/terms-of-service" className="hover:text-green-500 transition-colors duration-300">
+              Terms of Service
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

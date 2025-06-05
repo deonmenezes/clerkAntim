@@ -5,6 +5,8 @@ import { auth } from "@clerk/nextjs";
 import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 
+export const dynamic = 'force-dynamic';
+
 export const POST = async (req: NextRequest) => {
   try {
     const { userId } = auth()
