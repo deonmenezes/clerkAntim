@@ -11,7 +11,13 @@ export const connectToDB = async (): Promise<void> => {
   }
 
   try {
-    await mongoose.connect(process.env.MONGODB_URL || "", {
+    const mongoUrl = process.env.MONGODB_URL;
+    if (!mongoUrl) {
+      console.log("MongoDB URL not provided, skipping connection");
+      return;
+    }
+
+    await mongoose.connect(mongoUrl, {
       dbName: "Borcelle_Store"
     })
 

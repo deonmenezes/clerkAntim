@@ -2,8 +2,7 @@ import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = process.env.SITE_URL || 'https://smoothtradings.com';
-  
-  // Static routes
+    // Static routes
   const staticRoutes = [
     '',
     '/about',
@@ -18,7 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ].map(route => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
-    changeFrequency: 'daily',
+    changeFrequency: 'daily' as const,
     priority: route === '' ? 1.0 : 0.8,
   }));
 

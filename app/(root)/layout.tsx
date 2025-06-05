@@ -13,6 +13,7 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.SITE_URL || 'https://smoothtradings.com'),
   title: "Smooth Technical Trading and Service LLC | Industrial Products & Safety Equipment",
   description: "Smooth Technical Trading and Service LLC is Abu Dhabi's premier supplier of industrial products, safety equipment, windsocks, tarpaulins, and technical solutions. Serving UAE's oil & gas, manufacturing, and construction sectors with high-quality products and exceptional service.",
   keywords: "industrial products UAE, safety equipment, windsocks, tarpaulins, Vaultex products, Abu Dhabi supplier, technical trading, industrial solutions UAE",
