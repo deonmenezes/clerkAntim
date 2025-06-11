@@ -60,11 +60,10 @@ export default function TermsOfServicePage() {
 
         <h2>Contact Information</h2>
         <p>
-          If you have any questions about these Terms, please contact us at:
-          <br />
+          If you have any questions about these Terms, please contact us at:          <br />
           Email: info@smoothtradings.com
           <br />
-          Address: Plot No C126 Sector E11 AL Majarat St, Al Danah Abu Dhabi UAE 22220
+          Address: Sector-M9 - Shop #7 - Bldg. #49 As Salami 6 St - Musaffah - Musaffah Industrial - Abu Dhabi
         </p>
       </div>
     </div>

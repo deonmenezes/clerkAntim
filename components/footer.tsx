@@ -153,9 +153,10 @@ export default function Footer({ collections = [] }: FooterProps) {
 
           <div>
             <h3 className="text-lg font-semibold mb-6">Contact Information</h3>
-            <ul className="space-y-4">              <li className="flex items-start">
+            <ul className="space-y-4">
+              <li className="flex items-start">
                 <MapPin className="h-5 w-5 mr-3 text-green-500 mt-0.5" />
-                <span>Sector-M9 - Shop #7 - Bldg. #49 As Salami 6 St - Musaffah - Musaffah Industrial - Abu Dhabi</span>
+                <span>Sector-M9 - Shop #7 - Bldg. #49 As Salami 6 St - Musaffah - Musaffah Industrial - Abu Dhabi</span>
               </li>
               <li className="flex items-start">
                 <Phone className="h-5 w-5 mr-3 text-green-500 mt-0.5" />

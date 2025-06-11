@@ -229,11 +229,10 @@ export default function ContactPage() {
                   <div className="h-12 w-12 bg-green-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
                     <MapPin className="h-6 w-6 text-green-600" />
                   </div>
-                  <div>
-                    <h3 className="text-lg font-semibold mb-1">Our Office</h3>
+                  <div>                    <h3 className="text-lg font-semibold mb-1">Our Office</h3>
                     <p className="text-gray-600">
                       Smooth Technical Trading and Service LLC<br />
-                      Plot No C126 Sector E11 AL Majarat St,Al Danah Abu Dhabi UAE 22220 <br />
+                      Sector-M9 - Shop #7 - Bldg. #49 As Salami 6 St - Musaffah - Musaffah Industrial - Abu Dhabi<br />
                     
                     </p>
                   </div>
