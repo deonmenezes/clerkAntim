@@ -191,11 +191,27 @@ export default function Footer({ collections = [] }: FooterProps) {
                     <Send className="h-4 w-4" />
                     <span className="sr-only">Subscribe</span>
                   </Button>
-                </div>
-                <p className="text-xs text-gray-400">
+                </div>                <p className="text-xs text-gray-400">
                   Subscribe to get updates on new products and special offers
                 </p>
               </form>
+            </div>
+
+            {/* QR Code Section */}
+            <div className="mt-8 flex flex-col items-center">
+              <h4 className="text-sm font-medium mb-3 text-green-500">Scan for Quick Access</h4>
+              <div className="bg-white p-3 rounded-lg shadow-lg">
+                <Image
+                  src="/website_qr.png"
+                  alt="QR Code - Visit our website"
+                  width={120}
+                  height={120}
+                  className="rounded"
+                />
+              </div>
+              <p className="text-xs text-gray-400 mt-2 text-center">
+                Scan to visit our website
+              </p>
             </div>
           </div>
         </div>        <div className="border-t border-gray-800 mt-12 pt-8 text-center text-sm text-gray-400">
