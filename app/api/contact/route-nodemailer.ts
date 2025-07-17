@@ -1,9 +1,7 @@
 import { NextResponse } from "next/server"
-import { Resend } from 'resend'
+import nodemailer from 'nodemailer'
 
 export const dynamic = 'force-dynamic';
-
-const resend = new Resend(process.env.RESEND_API_KEY)
 
 export async function POST(req: Request) {
   try {
@@ -31,14 +29,14 @@ export async function POST(req: Request) {
       recipient: toEmail
     })
 
-    // Check if Resend API key is configured
-    if (!process.env.RESEND_API_KEY) {
-      console.error("RESEND_API_KEY is not configured")
-      return NextResponse.json(
-        { error: "Email service not configured" },
-        { status: 500 }
-      )
-    }
+    // Create transporter (you can use Gmail SMTP or other services)
+    const transporter = nodemailer.createTransporter({
+      service: 'gmail', // or use your email service
+      auth: {
+        user: process.env.EMAIL_USER, // your email
+        pass: process.env.EMAIL_PASSWORD, // your app password
+      },
+    })
 
     // Create email content
     const emailHtml = `
@@ -51,35 +49,19 @@ export async function POST(req: Request) {
       <p>${message.replace(/\n/g, '<br>')}</p>
       
       <hr>
-      <p><em>This message was sent from the contact form on your website.</em></p>
+      <p><em>This message was sent from the contact form on smoothtts.com</em></p>
     `
 
-    const emailText = `
-New Contact Form Submission
-
-Name: ${name}
-Email: ${email}
-${phone ? `Phone: ${phone}` : ''}
-${company ? `Company: ${company}` : ''}
-
-Message:
-${message}
-
----
-This message was sent from the contact form on your website.
-    `
-
-    // Send email using Resend
-    const data = await resend.emails.send({
-      from: 'Contact Form <noreply@smoothtts.com>', // You'll need to verify this domain with Resend
-      to: [toEmail],
+    // Send email
+    await transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      to: toEmail,
       subject: `New Contact Form Submission from ${name}`,
       html: emailHtml,
-      text: emailText,
-      replyTo: email, // Set reply-to as the sender's email
+      replyTo: email,
     })
 
-    console.log("Email sent successfully:", data)
+    console.log("Email sent successfully to:", toEmail)
 
     return NextResponse.json(
       { 
@@ -91,7 +73,7 @@ This message was sent from the contact form on your website.
   } catch (error) {
     console.error("Contact form error:", error)
     return NextResponse.json(
-      { error: "Failed to process contact form" },
+      { error: "Failed to send email. Please try again." },
       { status: 500 }
     )
   }

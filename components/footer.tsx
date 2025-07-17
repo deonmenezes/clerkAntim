@@ -165,9 +165,8 @@ export default function Footer({ collections = [] }: FooterProps) {
               <li className="flex items-start">
                 <Mail className="h-5 w-5 mr-3 text-green-500 mt-0.5" />
                 <div className="flex flex-col">
-                  <span>sales@smoothtradings.com</span>
-                  <span>info@smoothtradings.com</span>
-                  <span>accounts@smoothtradings.com</span>
+              
+                  <span>sales@smoothtts.com</span>
                 </div>
               </li>
             </ul>
