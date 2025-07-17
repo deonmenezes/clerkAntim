@@ -70,11 +70,7 @@ export const generateOrganizationJsonLd = () => {
     },
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'Abu Dhabi',
-      addressLocality: 'Abu Dhabi',
-      addressRegion: 'Abu Dhabi',
-      postalCode: '000000',
-      addressCountry: 'AE',
+      streetAddress: 'Sector-M9 - Shop #7 - Bldg. #49 As Salami 6 St - Musaffah - Musaffah Industrial - Abu Dhabi'
     },
   };
 };

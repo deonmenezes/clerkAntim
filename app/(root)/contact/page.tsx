@@ -336,7 +336,7 @@ export default function ContactPage() {
             transition={{ duration: 0.7 }}
           >
             <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3629.7984111237397!2d54.369945076905264!3d24.48799823693419!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5e664373f349cd%3A0xd36eac4ca80a92d6!2sc%20-%2011%20Al%20Majarat%20St%20-%20Al%20Danah%20-%20Zone%201%20-%20Abu%20Dhabi%20-%20United%20Arab%20Emirates!5e0!3m2!1sen!2sus!4v1714479233761!5m2!1sen!2sus" 
+              src="https://www.google.com/maps/place/24%C2%B022'34.2%22N+54%C2%B030'22.4%22E/@24.3761616,54.5036469,17z/data=!3m1!4b1!4m4!3m3!8m2!3d24.3761616!4d54.5062218?entry=ttu&g_ep=EgoyMDI1MDcxMy4wIKXMDSoASAFQAw%3D%3D" 
               width="100%" 
               height="100%" 
               style={{ border: 0 }} 
