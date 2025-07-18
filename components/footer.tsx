@@ -165,8 +165,7 @@ export default function Footer({ collections = [] }: FooterProps) {
               <li className="flex items-start">
                 <Mail className="h-5 w-5 mr-3 text-green-500 mt-0.5" />
                 <div className="flex flex-col">
-              
-                  <span>sales@smoothtts.com</span>
+                 <span>sales@smoothtts.com</span>
                 </div>
               </li>
             </ul>
@@ -223,7 +222,7 @@ export default function Footer({ collections = [] }: FooterProps) {
               Privacy Policy
             </Link>
             <Link href="/terms-of-service" className="hover:text-green-500 transition-colors duration-300">
-              Terms of Service
+              Terms of Service.
             </Link>
           </div>
         </div>
