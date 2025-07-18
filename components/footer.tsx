@@ -216,10 +216,10 @@ export default function Footer({ collections = [] }: FooterProps) {
           <p>&copy; {new Date().getFullYear()} Smooth Technical Trading and Service LLC. All rights reserved.</p>
           <div className="mt-2 flex justify-center space-x-4">
             <Link href="/sitemap.xml" className="hover:text-green-500 transition-colors duration-300">
-              Sitemap
+              Sitemap.
             </Link>
             <Link href="/privacy-policy" className="hover:text-green-500 transition-colors duration-300">
-              Privacy Policy
+              Privacy Policy.
             </Link>
             <Link href="/terms-of-service" className="hover:text-green-500 transition-colors duration-300">
               Terms of Service.
