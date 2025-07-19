@@ -1,9 +1,7 @@
 import { NextResponse } from "next/server"
-import { Resend } from 'resend'
+import nodemailer from 'nodemailer'
 
 export const dynamic = 'force-dynamic';
-
-const resend = new Resend(process.env.RESEND_API_KEY)
 
 export async function POST(req: Request) {
   try {
@@ -21,6 +19,15 @@ export async function POST(req: Request) {
     // Set the recipient email - use the provided one or default to sales@smoothtts.com
     const toEmail = recipient || "sales@smoothtts.com"
     
+    // Check if email credentials are configured
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASSWORD) {
+      console.error("Email credentials not configured");
+      return NextResponse.json(
+        { error: "Email service not configured. Please set EMAIL_USER and EMAIL_PASSWORD." },
+        { status: 500 }
+      );
+    }
+    
     // Log the submission (for development)
     console.log("Contact form submission:", {
       name,
@@ -31,13 +38,48 @@ export async function POST(req: Request) {
       recipient: toEmail
     })
 
-    // Check if Resend API key is configured
-    if (!process.env.RESEND_API_KEY) {
-      console.error("RESEND_API_KEY is not configured")
+    // Create transporter with better error handling
+    let transporter;
+    
+    try {
+      if (process.env.EMAIL_HOST) {
+        // Custom SMTP configuration
+        transporter = nodemailer.createTransport({
+          host: process.env.EMAIL_HOST,
+          port: parseInt(process.env.EMAIL_PORT || '587'),
+          secure: process.env.EMAIL_SECURE === 'true',
+          auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASSWORD,
+          },
+        });
+      } else {
+        // Gmail configuration
+        transporter = nodemailer.createTransport({
+          service: 'gmail',
+          auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASSWORD,
+          },
+        });
+      }
+    } catch (error) {
+      console.error("Failed to create email transporter:", error);
       return NextResponse.json(
-        { error: "Email service not configured" },
+        { error: "Email service configuration error" },
         { status: 500 }
-      )
+      );
+    }
+
+    // Verify transporter configuration
+    try {
+      await transporter.verify();
+    } catch (error) {
+      console.error("Email transporter verification failed:", error);
+      return NextResponse.json(
+        { error: "Email service authentication failed. Please check email credentials." },
+        { status: 500 }
+      );
     }
 
     // Create email content
@@ -51,47 +93,39 @@ export async function POST(req: Request) {
       <p>${message.replace(/\n/g, '<br>')}</p>
       
       <hr>
-      <p><em>This message was sent from the contact form on your website.</em></p>
+      <p><em>This message was sent from the contact form on smoothtts.com</em></p>
     `
 
-    const emailText = `
-New Contact Form Submission
+    // Send email
+    try {
+      await transporter.sendMail({
+        from: process.env.EMAIL_USER,
+        to: toEmail,
+        subject: `New Contact Form Submission from ${name}`,
+        html: emailHtml,
+        replyTo: email,
+      });
 
-Name: ${name}
-Email: ${email}
-${phone ? `Phone: ${phone}` : ''}
-${company ? `Company: ${company}` : ''}
+      console.log("Email sent successfully to:", toEmail);
 
-Message:
-${message}
-
----
-This message was sent from the contact form on your website.
-    `
-
-    // Send email using Resend
-    const data = await resend.emails.send({
-      from: 'Contact Form <noreply@smoothtts.com>', // You'll need to verify this domain with Resend
-      to: [toEmail],
-      subject: `New Contact Form Submission from ${name}`,
-      html: emailHtml,
-      text: emailText,
-      replyTo: email, // Set reply-to as the sender's email
-    })
-
-    console.log("Email sent successfully:", data)
-
-    return NextResponse.json(
-      { 
-        message: "Contact form submitted successfully",
-        sentTo: toEmail 
-      },
-      { status: 200 }
-    )
+      return NextResponse.json(
+        { 
+          message: "Contact form submitted successfully",
+          sentTo: toEmail 
+        },
+        { status: 200 }
+      );
+    } catch (emailError) {
+      console.error("Failed to send email:", emailError);
+      return NextResponse.json(
+        { error: "Failed to send email. Please check your email configuration." },
+        { status: 500 }
+      );
+    }
   } catch (error) {
     console.error("Contact form error:", error)
     return NextResponse.json(
-      { error: "Failed to process contact form" },
+      { error: "Failed to send email. Please try again." },
       { status: 500 }
     )
   }
