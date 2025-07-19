@@ -208,7 +208,7 @@ export default function Footer({ collections = [] }: FooterProps) {
                 />
               </div>
               <p className="text-xs text-gray-400 mt-2 text-center">
-                Scan to visit our website
+                Scan to visit our website.
               </p>
             </div>
           </div>
